@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow: /register
+Disallow: /login
+Disallow: /verify-email
+Disallow: /:usuario/albums
+Disallow: /:usuario/albums/:id_album/:titulo_album
+Allow: /
+Sitemap: https://tu-dominio.com/sitemap.xml
