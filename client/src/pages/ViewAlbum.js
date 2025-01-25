@@ -17,12 +17,12 @@ const ViewAlbum = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5000/photos/${id_album}`
-        );
+        const response = await fetch(`${API_BASE_URL}/photos/${id_album}`);
         const data = await response.json();
 
         if (response.ok && data.success) {
