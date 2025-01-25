@@ -9,6 +9,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import AlbumDetails from "./pages/AlbumDetails";
 import ViewAlbum from "./pages/ViewAlbum";
 import PrivateRoute from "./components/PrivateRoute";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -37,6 +38,8 @@ function App() {
 
         <Route path="/verify-email" element={<VerifyEmail />} />
       </Routes>
+
+      <Analytics />
     </Router>
   );
 }
