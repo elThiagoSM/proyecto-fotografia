@@ -1,6 +1,8 @@
 import React from "react";
 
 const Register = () => {
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const handleRegister = async (event) => {
     event.preventDefault();
 
@@ -10,7 +12,7 @@ const Register = () => {
     const data = Object.fromEntries(formData);
 
     try {
-      const response = await fetch("http://localhost:5000/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

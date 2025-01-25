@@ -9,6 +9,8 @@ const Albums = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const fetchAlbums = async () => {
     const loggedInUserId = JSON.parse(sessionStorage.getItem("user"))?.id;
 
@@ -21,9 +23,7 @@ const Albums = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `http://localhost:5000/albums/${loggedInUserId}`
-      );
+      const response = await fetch(`${API_BASE_URL}/albums/${loggedInUserId}`);
       const data = await response.json();
       if (data.success) {
         setAlbums(data.albums);
@@ -42,7 +42,7 @@ const Albums = () => {
 
   const handleDeleteAlbum = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/albums/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/albums/${id}`, {
         method: "DELETE",
       });
 

@@ -15,6 +15,8 @@ const EditProfile = ({ onClose, photographer }) => {
   const [newProfileImage, setNewProfileImage] = useState(null); // Nueva imagen
   const [errorMessage, setErrorMessage] = useState("");
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   // Convertir imagen a Base64
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -58,7 +60,7 @@ const EditProfile = ({ onClose, photographer }) => {
   const handleSaveChanges = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/usuario/${photographer.nombre_usuario}`,
+        `${API_BASE_URL}/usuario/${photographer.nombre_usuario}`,
         {
           method: "PUT",
           headers: {

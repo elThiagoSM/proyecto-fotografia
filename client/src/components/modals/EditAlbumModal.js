@@ -18,9 +18,11 @@ const EditAlbumModal = ({ album, onClose }) => {
   const [previewPortada, setPreviewPortada] = useState(album.url_portada); // Vista previa de la portada actual
   const [subiendo, setSubiendo] = useState(false);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const fetchTemas = async () => {
     try {
-      const response = await fetch("http://localhost:5000/temas");
+      const response = await fetch(`${API_BASE_URL}/temas`);
       const data = await response.json();
       if (data.success) {
         setTemas(data.temas);
@@ -59,7 +61,7 @@ const EditAlbumModal = ({ album, onClose }) => {
     if (imageBase64) {
       try {
         const response = await fetch(
-          `http://localhost:5000/albums/${album.id}/portada`,
+          `${API_BASE_URL}/albums/${album.id}/portada`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -84,7 +86,7 @@ const EditAlbumModal = ({ album, onClose }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/albums/${album.id}`, {
+      const response = await fetch(`${API_BASE_URL}/albums/${album.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

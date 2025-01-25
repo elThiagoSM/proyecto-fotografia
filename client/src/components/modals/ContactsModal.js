@@ -7,13 +7,13 @@ const ContactsModal = ({ onClose, usuarioId }) => {
   const [error, setError] = useState(null);
   const [copiedField, setCopiedField] = useState("");
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   // Fetch para obtener los contactos
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5000/contactos/${usuarioId}`
-        );
+        const response = await fetch(`${API_BASE_URL}/contactos/${usuarioId}`);
         const data = await response.json();
 
         if (data.success) {

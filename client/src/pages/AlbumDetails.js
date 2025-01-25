@@ -14,9 +14,11 @@ const AlbumDetails = () => {
   const [files, setFiles] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const fetchPhotos = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/photos/${id_album}`);
+      const response = await fetch(`${API_BASE_URL}/photos/${id_album}`);
       const data = await response.json();
 
       if (data.success) {
@@ -55,30 +57,24 @@ const AlbumDetails = () => {
           reader.onload = async () => {
             const base64Image = reader.result.split(",")[1];
 
-            const uploadResponse = await fetch(
-              "http://localhost:5000/upload/image",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ image: base64Image }),
-              }
-            );
+            const uploadResponse = await fetch(`${API_BASE_URL}/upload/image`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ image: base64Image }),
+            });
             const uploadData = await uploadResponse.json();
 
             if (uploadData.success) {
-              const photoResponse = await fetch(
-                "http://localhost:5000/photos",
-                {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    album_id: id_album,
-                    nombre: file.name,
-                    precio: 0.0,
-                    url: uploadData.url,
-                  }),
-                }
-              );
+              const photoResponse = await fetch(`${API_BASE_URL}/photos`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  album_id: id_album,
+                  nombre: file.name,
+                  precio: 0.0,
+                  url: uploadData.url,
+                }),
+              });
 
               const photoData = await photoResponse.json();
 

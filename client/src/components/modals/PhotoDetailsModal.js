@@ -4,6 +4,8 @@ const PhotoDetailsModal = ({ isOpen, onClose, photo }) => {
   const [titulo, setNombre] = useState(photo?.titulo || "");
   const [precio, setPrecio] = useState(photo?.precio || "");
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const handleSaveDetails = async () => {
     if (!titulo || !precio) {
       alert("Por favor, ingresa todos los campos requeridos.");
@@ -11,7 +13,7 @@ const PhotoDetailsModal = ({ isOpen, onClose, photo }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/photos/${photo.id}`, {
+      const response = await fetch(`${API_BASE_URL}/photos/${photo.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -7,6 +7,8 @@ const ImageCard = ({ photo, onDelete }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const handleOpenEditModal = () => {
     setIsEditModalOpen(true);
   };
@@ -25,7 +27,7 @@ const ImageCard = ({ photo, onDelete }) => {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/photos/${photo.id}`, {
+      const response = await fetch(`${API_BASE_URL}/photos/${photo.id}`, {
         method: "DELETE",
       });
       const data = await response.json();

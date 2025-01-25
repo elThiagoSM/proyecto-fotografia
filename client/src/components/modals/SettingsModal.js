@@ -33,9 +33,11 @@ const SettingsModal = ({ onClose, usuarioId }) => {
   const [tempValue, setTempValue] = useState("");
   const navigate = useNavigate();
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   useEffect(() => {
     // Obtener los contactos del usuario al cargar el componente
-    fetch(`http://localhost:5000/contactos/${usuarioId}`)
+    fetch(`${API_BASE_URL}/contactos/${usuarioId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -59,7 +61,7 @@ const SettingsModal = ({ onClose, usuarioId }) => {
       const detalle = contactInfo[tipo];
       if (!detalle) return null; // Si no hay detalle, no hacemos nada
 
-      return fetch(`http://localhost:5000/contactos/${usuarioId}/${tipo}`, {
+      return fetch(`${API_BASE_URL}/contactos/${usuarioId}/${tipo}`, {
         method: "PUT", // Intentamos actualizar primero
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +72,7 @@ const SettingsModal = ({ onClose, usuarioId }) => {
         .then((data) => {
           if (!data.success && data.message === "Contacto no encontrado.") {
             // Si no existe, lo creamos con POST
-            return fetch(`http://localhost:5000/contactos`, {
+            return fetch(`${API_BASE_URL}/contactos`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

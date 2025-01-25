@@ -20,15 +20,15 @@ const PhotographerProfile = () => {
   const [filteredAlbums, setFilteredAlbums] = useState([]);
   const [error, setError] = useState("");
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const loggedInUserId = JSON.parse(sessionStorage.getItem("user"))?.id;
 
   useEffect(() => {
     const fetchPhotographerData = async () => {
       try {
         // Fetch datos del usuario
-        const userResponse = await fetch(
-          `http://localhost:5000/usuario/${usuario}`
-        );
+        const userResponse = await fetch(`${API_BASE_URL}/usuario/${usuario}`);
         const userData = await userResponse.json();
 
         if (userResponse.ok && userData.success) {
@@ -36,7 +36,7 @@ const PhotographerProfile = () => {
 
           // Una vez que se obtiene el fotógrafo, realizar la solicitud de álbumes
           const albumsResponse = await fetch(
-            `http://localhost:5000/albums/publicos/${userData.user.id}` // Usar el id del usuario
+            `${API_BASE_URL}/albums/publicos/${userData.user.id}` // Usar el id del usuario
           );
           const albumsData = await albumsResponse.json();
 

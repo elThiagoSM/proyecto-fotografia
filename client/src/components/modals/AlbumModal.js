@@ -6,9 +6,11 @@ const AlbumModal = ({ isOpen, onClose, fetchAlbums }) => {
   const [publico, setPublico] = useState(false);
   const [temas, setTemas] = useState([]);
 
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const fetchTemas = async () => {
     try {
-      const response = await fetch("http://localhost:5000/temas");
+      const response = await fetch(`${API_BASE_URL}/temas`);
       const data = await response.json();
       if (data.success) {
         setTemas(data.temas);
@@ -29,7 +31,7 @@ const AlbumModal = ({ isOpen, onClose, fetchAlbums }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/albums", {
+      const response = await fetch(`${API_BASE_URL}/albums`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
